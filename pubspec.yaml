@@ -35,8 +35,11 @@ dependencies:
   firebase_core: ^2.4.1
   firebase_database: ^10.0.9
   liquid_progress_indicator: ^0.4.0
-  curved_navigation_bar: ^1.0.3
   syncfusion_flutter_gauges: ^20.4.44
+  http: ^0.13.5
+  vertical_percent_indicator: ^0.0.1
+  flutter_slider_drawer: ^2.1.2
+  google_nav_bar: ^5.0.6
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -68,15 +71,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - images/Cloud.png
-    - images/temp.png
-    - images/ph.png
-    - images/de.png
-    - images/i2.png
-    - images/ec.png
-    - images/Mask1.png
-    - images/Group.png
     - images/ph_meter.png
-    - images/temp_meter.png
+    - images/Icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

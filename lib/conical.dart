@@ -12,7 +12,7 @@ class ReflectionPainter extends CustomPainter {
 
     var paint = Paint()
       ..colorFilter =
-      ColorFilter.mode(Colors.white.withOpacity(0.1), BlendMode.softLight)
+          ColorFilter.mode(Colors.white.withOpacity(0.1), BlendMode.softLight)
       ..strokeJoin = StrokeJoin.round
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
@@ -36,27 +36,24 @@ class ReflectionPainter extends CustomPainter {
 class FlaskPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final rect = Rect.fromLTWH(
-        -size.width / 4, -size.height / 4, 58, 58);
+    final rect = Rect.fromLTWH(-size.width / 14, -size.height / 4, 58, 58);
 
     var paint = Paint()
       ..strokeJoin = StrokeJoin.round
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
       ..color = kContourColor
-      ..strokeWidth = 5;
+      ..strokeWidth = 3;
 
     final flask = Path();
-    flask.moveTo(math.sin(vector.radians(15.0)) * 130,
-        -math.cos(vector.radians(15.0)) * 26);
-    flask.arcTo(rect, vector.radians(-70.0), vector.radians(310), false);
-    flask.relativeLineTo(0, -26);
+    flask.moveTo(math.sin(vector.radians(15.0)) * 140,
+        -math.cos(vector.radians(15.0)) * 32.5);
+    flask.arcTo(rect, vector.radians(-70.0), vector.radians(320), false);
+    flask.relativeLineTo(0, -30);
     flask.close();
 
-    final topRect = Rect.fromCenter(
-        center: Offset(22.4, -30),
-        width: 35,
-        height: 10);
+    final topRect =
+        Rect.fromCenter(center: Offset(27, -34), width: 30, height: 5);
     final topRRect = RRect.fromRectAndRadius(topRect, Radius.circular(10));
     flask.addRRect(topRRect);
     canvas.drawPath(flask, paint);

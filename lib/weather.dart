@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-
 void main() => runApp(MaterialApp(
-  home: WeatherPage(),
-));
+      home: WeatherPage(),
+    ));
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({super.key});
@@ -20,8 +19,8 @@ class _WeatherPageState extends State<WeatherPage> {
 
   Future<void> _getWeather() async {
     // Make a GET request to the OpenWeatherMap API
-    var response = await http.get(
-        Uri.parse('http://api.weatherapi.com/v1/current.json?key=e5f0de7f89494da8b3a90715232401&q=$_cityName&aqi=yes'));
+    var response = await http.get(Uri.parse(
+        'http://api.weatherapi.com/v1/current.json?key=e5f0de7f89494da8b3a90715232401&q=$_cityName&aqi=yes'));
 
     // Convert the response to a JSON object
     var jsonData = json.decode(response.body);
