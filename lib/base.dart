@@ -1,18 +1,8 @@
+import 'package:dashboard_1/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-
 import 'Home.dart';
-import 'login_page/widget_tree.dart';
-
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: Main(),
-  ));
-}
 
 class Main extends StatefulWidget {
   const Main({super.key});
@@ -25,7 +15,7 @@ class _MainState extends State<Main> {
   final task = [
     const App(),
     Container(),
-    const WidgetTree(),
+    const Profile(),
     Container(),
   ];
   int currentIndex = 0;

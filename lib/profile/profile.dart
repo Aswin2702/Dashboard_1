@@ -10,6 +10,25 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Column(children: const [
+        SizedBox(
+          height: 100,
+        ),
+        Center(
+          child: Text(
+            "Profile",
+            style: TextStyle(
+              fontFamily: 'SF-Pro',
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        // Center(
+        //   child: Image(image: AssetImage()),
+        // )
+      ]),
+    );
   }
 }

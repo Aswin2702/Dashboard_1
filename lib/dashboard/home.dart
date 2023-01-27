@@ -1,3 +1,4 @@
+import 'package:dashboard_1/main.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -5,10 +6,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 
 import 'conical.dart';
-import 'login_page/widget_tree.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);

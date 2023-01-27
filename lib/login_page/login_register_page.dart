@@ -1,4 +1,4 @@
-import 'package:dashboard_1/main.dart';
+import 'package:dashboard_1/base.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 import './wave_wig.dart';
@@ -356,46 +356,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ]),
       ),
-      // bottomNavigationBar: Container(
-      //   color: Colors.white,
-      //   child: Padding(
-      //     padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-      //     child: GNav(
-      //       gap: 5,
-      //       onTabChange: (index) {
-      //         print(index);
-      //       },
-      //       backgroundColor: Colors.white,
-      //       color: Colors.black,
-      //       activeColor: Colors.black,
-      //       tabBackgroundColor: Color(0xffDADEEC),
-      //       padding: EdgeInsets.all(5),
-      //       selectedIndex: 2,
-      //       tabs: [
-      //         GButton(
-      //           icon: Icons.home,
-      //           text: 'Home',
-      //           onPressed: () {
-      //             Navigator.push(context,
-      //                 MaterialPageRoute(builder: ((context) => App())));
-      //           },
-      //         ),
-      //         GButton(
-      //           icon: Icons.dashboard_customize,
-      //           text: 'Add Pond',
-      //         ),
-      //         GButton(
-      //           icon: Icons.account_circle,
-      //           text: 'Profile',
-      //         ),
-      //         GButton(
-      //           icon: Icons.settings,
-      //           text: 'Settings',
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      // ),
     );
   }
 }
