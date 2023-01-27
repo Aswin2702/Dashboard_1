@@ -37,9 +37,8 @@ dependencies:
   liquid_progress_indicator: ^0.4.0
   syncfusion_flutter_gauges: ^20.4.44
   http: ^0.13.5
-  vertical_percent_indicator: ^0.0.1
-  flutter_slider_drawer: ^2.1.2
   google_nav_bar: ^5.0.6
+  firebase_auth: ^4.2.3
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -73,6 +72,7 @@ flutter:
     - images/Cloud.png
     - images/ph_meter.png
     - images/Icon.png
+    - images/user.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
