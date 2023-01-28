@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dashboard_1">
    <application
-        android:label="dashboard_1"
+        android:label="Pontus"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

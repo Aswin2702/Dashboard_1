@@ -1,10 +1,9 @@
-import 'package:dashboard_1/base.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-
 import './wave_wig.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './auth.dart';
+
+String name = '';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -24,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _controllerName = TextEditingController();
 
   Future<void> signInWithEmailAndPassword() async {
+    name = _controllerName.text;
     try {
       await Auth().signInWithEmailAndPassword(
         email: _controllerEmail.text,
@@ -37,6 +37,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> createUserWithEmailAndPassword() async {
+    name = _controllerName.text;
     try {
       await Auth().createUserWithEmailAndPassword(
         email: _controllerEmail.text,
@@ -107,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              SizedBox(
+              const SizedBox(
                 height: 75,
               ),
               isLogin

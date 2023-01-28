@@ -1,4 +1,3 @@
-import 'package:dashboard_1/main.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -6,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
-
 import 'conical.dart';
 
 class App extends StatefulWidget {
@@ -520,14 +518,6 @@ class _AppState extends State<App> {
           ]),
     ]);
   }
-
-  final task = [
-    const App(),
-    Container(),
-    const WidgetTree(),
-    Container(),
-  ];
-  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
