@@ -2,6 +2,7 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:http/http.dart' as http;
+import 'package:percent_indicator/percent_indicator.dart';
 import 'dart:convert';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
@@ -59,14 +60,14 @@ class _AppState extends State<App> {
     String phI, tempI, oxyI;
     if (ph == 7) {
       phI = "Neutral";
-    } else if (ph > 7 && ph < 10) {
-      phI = "Slightly acidic";
-    } else if (ph < 7 && ph > 4) {
+    } else if (ph > 7 && ph <= 8.5) {
       phI = "Slightly basic";
-    } else if (ph <= 4) {
-      phI = "Basic";
-    } else if (ph >= 10) {
+    } else if (ph >= 5.5 && ph < 7) {
+      phI = "Slightly acidic";
+    } else if (ph <= 5.5) {
       phI = "Acidic";
+    } else if (ph > 7) {
+      phI = "Basic";
     } else {
       phI = "";
     }
@@ -81,11 +82,11 @@ class _AppState extends State<App> {
       tempI = "";
     }
 
-    if (oxy >= 6 && oxy <= 10) {
+    if (oxy >= 5 && oxy <= 11) {
       oxyI = "Optimum";
-    } else if (temp > 10) {
+    } else if (oxy > 11) {
       oxyI = "High";
-    } else if (temp < 6) {
+    } else if (oxy < 5) {
       oxyI = "Low";
     } else {
       oxyI = "";
@@ -171,63 +172,63 @@ class _AppState extends State<App> {
           borderRadius: BorderRadius.circular(15.0),
           color: Colors.white,
         ),
-        child: Row(
+        child: Stack(
           children: [
-            const SizedBox(
-              height: 20,
-              width: 20,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  "OXYGEN LEVEL",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontFamily: "SF-Pro",
-                    fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "${data['Oxygen level']} ppm",
-                  style: const TextStyle(
-                    fontFamily: "SF-Pro",
-                    fontSize: 37,
+                  const Text(
+                    "OXYGEN LEVEL",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: "SF-Pro",
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  oxyI,
-                  style: const TextStyle(
-                    color: Colors.blue,
-                    fontFamily: "SF-Pro",
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                  const SizedBox(
+                    height: 5,
                   ),
-                ),
-              ],
+                  Text(
+                    "${data['Oxygen level']} ppm",
+                    style: const TextStyle(
+                      fontFamily: "SF-Pro",
+                      fontSize: 37,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    oxyI,
+                    style: const TextStyle(
+                      color: Colors.blue,
+                      fontFamily: "SF-Pro",
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
             ),
-            SizedBox(
-              width: scrW / 4,
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, (scrW - 50) / 9, 0, 0),
-              child: Flask(data['Oxygen level'].toDouble()),
+            Positioned(
+              top: -scrH / 35,
+              right: 5,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(0, (scrW - 50) / 9, 0, 0),
+                child: Flask(data['Oxygen level'].toDouble()),
+              ),
             ),
           ],
         ),
       ),
       const SizedBox(
-        height: 20,
+        height: 8,
       ),
       Container(
         // alignment: Alignment.center,
@@ -238,97 +239,92 @@ class _AppState extends State<App> {
           borderRadius: BorderRadius.circular(15.0),
           color: Colors.white,
         ),
-        child: Row(
+        child: Stack(
           children: [
             const SizedBox(
               width: 20,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  "PH LEVEL",
-                  style: TextStyle(
-                    fontFamily: "SF-Pro",
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "${data['pH']}",
-                  style: const TextStyle(
-                    fontFamily: "SF-Pro",
-                    fontSize: 37,
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  phI,
-                  style: const TextStyle(
-                    fontFamily: "SF-Pro",
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.blue,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: scrW / 2.9,
-            ),
-            Stack(children: [
-              Container(
-                height: 110,
-                width: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: data['pH'] >= 5 && data['pH'] <= 9
-                      ? Colors.green
-                      : Colors.red,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 46, 0, 0),
-                  child: Text(
-                    "${data['pH']}",
-                    style: const TextStyle(
+                  const Text(
+                    "PH LEVEL",
+                    style: TextStyle(
                       fontFamily: "SF-Pro",
+                      fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    "${data['pH']}",
+                    style: const TextStyle(
+                      fontFamily: "SF-Pro",
+                      fontWeight: FontWeight.w100,
+                      fontSize: 37,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    phI,
+                    style: const TextStyle(
+                      fontFamily: "SF-Pro",
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ],
               ),
-              Container(
-                height: 100,
-                width: 40,
-                margin: const EdgeInsets.fromLTRB(15, 5, 0, 0),
-                decoration: BoxDecoration(
+            ),
+            Positioned(
+              right: 20,
+              top: 10,
+              child: Stack(children: [
+                Container(
+                  height: 110,
+                  width: 60,
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.white),
-              ),
-              Container(
-                  margin: const EdgeInsets.fromLTRB(12, 0, 0, 0),
-                  child: Row(
-                    children: [
-                      PhInd(data['pH'].toDouble()),
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                        child: Image(
-                          image: AssetImage("images/ph_meter.png"),
-                          height: 100,
+                    color: data['pH'] >= 5 && data['pH'] <= 9
+                        ? Colors.green
+                        : Colors.red,
+                  ),
+                ),
+                Container(
+                  height: 100,
+                  width: 40,
+                  margin: const EdgeInsets.fromLTRB(15, 5, 0, 0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white),
+                ),
+                Container(
+                    margin: const EdgeInsets.fromLTRB(12, 0, 0, 0),
+                    child: Row(
+                      children: [
+                        PhInd(data['pH'].toDouble()),
+                        const Padding(
+                          padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                          child: Image(
+                            image: AssetImage("images/ph_meter.png"),
+                            height: 100,
+                          ),
                         ),
-                      ),
-                    ],
-                  )),
-            ]),
+                      ],
+                    )),
+              ]),
+            ),
           ],
         ),
       ),
@@ -337,21 +333,19 @@ class _AppState extends State<App> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(scrW / 12, 15, 0, 0),
+              margin: EdgeInsets.fromLTRB(scrW / 12, 8, 0, 0),
               height: scrH / 4,
-              width: scrW / 2.5,
+              width: scrW / 2.4,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 color: Colors.white,
               ),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: scrH / 50,
-                    ),
-                    const Text(
+              child: Stack(children: [
+                const Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                    child: Text(
                       "TEMPERATURE",
                       style: TextStyle(
                         fontSize: 15,
@@ -359,161 +353,150 @@ class _AppState extends State<App> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(
-                      height: scrH / 100,
+                  ),
+                ),
+                Stack(children: <Widget>[
+                  Center(
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                      height: 100,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        color: const Color(0xfffddeeff),
+                      ),
                     ),
-                    Stack(children: <Widget>[
-                      Center(
-                        child: Container(
-                          padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                          height: 100,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            color: const Color(0xfffddeeff),
-                          ),
-                        ),
+                  ),
+                  Center(
+                    child: Container(
+                      height: 90,
+                      width: 30,
+                      margin: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        color: const Color(0xffffffff),
                       ),
-                      Center(
-                        child: Container(
-                          height: 90,
-                          width: 30,
-                          margin: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            color: const Color(0xffffffff),
-                          ),
-                        ),
-                      ),
-                      Center(
-                        child: Container(
-                          margin: const EdgeInsets.fromLTRB(0, 23, 0, 0),
-                          height: 65,
-                          width: 10,
-                          child: LiquidLinearProgressIndicator(
-                            value: tempP,
-                            direction: Axis.vertical,
-                            backgroundColor: Colors.blue[200],
-                            borderColor: Colors.blue[200],
-                            borderWidth: 1.0,
-                            borderRadius: 40,
-                            valueColor: data['Temperature'] >= 24 &&
-                                    data['Temperature'] <= 28
-                                ? const AlwaysStoppedAnimation(Colors.green)
-                                : const AlwaysStoppedAnimation(Colors.red),
-                          ),
-                        ),
-                      ),
-                    ]),
-                    SizedBox(
-                      height: scrH / 80,
                     ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: scrW / 30,
-                        ),
-                        Text(
-                          "${data['Temperature']}°C",
-                          style: const TextStyle(
-                            fontFamily: "SF-Pro",
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                        SizedBox(
-                          width: scrW / 15,
-                        ),
-                        const Text(
-                          "Optimum",
-                          style: TextStyle(
-                            fontFamily: "SF-Pro",
-                            fontSize: 16,
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ],
-                    )
-                  ]),
+                  ),
+                  Center(
+                    child: Container(
+                      margin: const EdgeInsets.fromLTRB(0, 23, 0, 0),
+                      height: 65,
+                      width: 10,
+                      child: LiquidLinearProgressIndicator(
+                        value: tempP,
+                        direction: Axis.vertical,
+                        backgroundColor: Colors.blue[200],
+                        borderColor: Colors.blue[200],
+                        borderWidth: 1.0,
+                        borderRadius: 40,
+                        valueColor: data['Temperature'] >= 24 &&
+                                data['Temperature'] <= 28
+                            ? const AlwaysStoppedAnimation(Colors.green)
+                            : const AlwaysStoppedAnimation(Colors.red),
+                      ),
+                    ),
+                  ),
+                ]),
+                Positioned(
+                  bottom: 10,
+                  left: 12,
+                  child: Text(
+                    "${data['Temperature']}°C",
+                    style: const TextStyle(
+                      fontFamily: "SF-Pro",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  right: 7,
+                  bottom: 10,
+                  child: Text(
+                    tempI,
+                    style: const TextStyle(
+                      fontFamily: "SF-Pro",
+                      fontSize: 16,
+                      color: Colors.blue,
+                    ),
+                  ),
+                )
+              ]),
             ),
             Container(
-              margin: const EdgeInsets.fromLTRB(20, 15, 0, 0),
+              margin: const EdgeInsets.fromLTRB(8, 8, 0, 0),
               height: scrH / 4,
-              width: scrW / 2.5,
+              width: scrW / 2.4,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 color: Colors.white,
               ),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: scrH / 50,
-                    ),
-                    const Text(
+              child: Stack(children: [
+                const Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(0, 12, 0, 0),
+                    child: Text(
                       "SALINITY",
                       style: TextStyle(
                         fontSize: 15,
                         fontFamily: "SF-Pro",
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SizedBox(
-                      height: scrH / 50,
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    height: 90,
+                    width: 90,
+                    decoration: const BoxDecoration(
+                        gradient: RadialGradient(
+                          colors: [
+                            Color(0xffF7FBFD),
+                            Color(0xff71A7CD),
+                          ],
+                        ),
+                        shape: BoxShape.circle),
+                    child: LiquidCircularProgressIndicator(
+                      value: data['TDS'] / 100,
+                      valueColor: data['TDS'] >= 40 && data['TDS'] <= 60
+                          ? AlwaysStoppedAnimation(Colors.green)
+                          : AlwaysStoppedAnimation(Colors.red),
+                      borderWidth: 0,
+                      backgroundColor: Color.fromARGB(113, 255, 255, 255),
+                      borderColor: Colors.white,
+                      direction: Axis.vertical,
                     ),
-                    Container(
-                      height: 90,
-                      width: 90,
-                      decoration: const BoxDecoration(
-                          gradient: RadialGradient(
-                            colors: [
-                              Color(0xffF7FBFD),
-                              Color(0xff71A7CD),
-                            ],
-                          ),
-                          shape: BoxShape.circle),
-                      child: LiquidCircularProgressIndicator(
-                        value: data['TDS'] / 100,
-                        valueColor: data['TDS'] >= 40 && data['TDS'] <= 60
-                            ? AlwaysStoppedAnimation(Colors.green)
-                            : AlwaysStoppedAnimation(Colors.red),
-                        borderWidth: 0,
-                        backgroundColor: Color.fromARGB(113, 255, 255, 255),
-                        borderColor: Colors.white,
-                        direction: Axis.vertical,
-                      ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  left: 12,
+                  child: Text(
+                    "${data['TDS']}%",
+                    style: const TextStyle(
+                      fontFamily: "SF-Pro",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
                     ),
-                    SizedBox(
-                      height: scrH / 40,
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 8,
+                  child: Text(
+                    tempI,
+                    style: const TextStyle(
+                      fontFamily: "SF-Pro",
+                      fontSize: 16,
+                      color: Colors.blue,
                     ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: scrW / 30,
-                        ),
-                        Text(
-                          "${data['TDS']}%",
-                          style: const TextStyle(
-                            fontFamily: "SF-Pro",
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                        SizedBox(
-                          width: scrW / 15,
-                        ),
-                        Text(
-                          tempI,
-                          style: const TextStyle(
-                            fontFamily: "SF-Pro",
-                            fontSize: 16,
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ],
-                    )
-                  ]),
+                  ),
+                )
+              ]),
             ),
           ]),
     ]);
@@ -555,8 +538,8 @@ class _AppState extends State<App> {
               painter: ReflectionPainter(),
             ),
             Container(
-              height: 54,
-              width: 72,
+              height: 56,
+              width: 73,
               padding: EdgeInsets.fromLTRB(0, 0, 16, 0),
               child: LiquidCircularProgressIndicator(
                 value: value / 20,

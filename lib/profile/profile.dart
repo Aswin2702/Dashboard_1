@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../login_page/login_register_page.dart';
+import '../login_page/auth.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -11,6 +11,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final User? user = Auth().currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +81,7 @@ class _ProfileState extends State<Profile> {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         const Align(
@@ -105,11 +106,11 @@ class _ProfileState extends State<Profile> {
             borderRadius: BorderRadius.circular(15.0),
             color: Colors.white,
           ),
-          child: const Padding(
-            padding: EdgeInsets.fromLTRB(20.0, 16.0, 0, 0),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 16.0, 0, 0),
             child: Text(
-              "yash@gmail.com",
-              style: TextStyle(
+              user?.email ?? 'User email',
+              style: const TextStyle(
                 fontFamily: 'SF-Pro',
                 fontWeight: FontWeight.w600,
                 fontSize: 16,
@@ -117,7 +118,7 @@ class _ProfileState extends State<Profile> {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         const Align(
@@ -162,7 +163,7 @@ class _ProfileState extends State<Profile> {
           width: scrWidth / 2.5,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
-            color: Color(0xff3C3C43),
+            color: const Color(0xff3C3C43),
           ),
           child: MaterialButton(
             onPressed: signOut,
